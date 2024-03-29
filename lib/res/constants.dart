@@ -2,32 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 const Color primaryColor = Color(0xFF181818);
-const Color bgColor = Color(0xff1c77dd);
+const Color bgColor = Color.fromRGBO(15, 15, 15, 1.0);
 
 const Color buttonColor = Color(0xff69E4EC);
 
-const Color iconColor = Color(0xffA8A8A8);
+const Color iconColor = Color.fromRGBO(124, 124, 124, 1);
+const Color cardColor = Color.fromRGBO(27, 27, 27, 1);
 const Color textColor = Color(0xffffffff);
 
 //30
-TextStyle salutationTextStyle(double size) => GoogleFonts.poppins(
+TextStyle salutationTextStyle(double size, Color color) => GoogleFonts.epilogue(
       textStyle: TextStyle(
-        color: iconColor,
+        color: color,
+        height: 2,
         fontSize: size,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.w700,
       ),
     );
-//72
-TextStyle titleText(double size) => GoogleFonts.epilogue(
+//72 when big
+// 48 when mobile size
+TextStyle titleText(double size, Color color) => GoogleFonts.epilogue(
       textStyle: TextStyle(
-        color: buttonColor,
+        color: color,
         height: 1.2,
         fontSize: size,
         fontWeight: FontWeight.bold,
       ),
     );
-//20
-TextStyle normalText(double size) => GoogleFonts.poppins(
+//24
+TextStyle normalText(double size, Color color) => GoogleFonts.epilogue(
       textStyle: TextStyle(
-          color: iconColor, fontSize: size, fontWeight: FontWeight.normal),
+          color: color, fontSize: size, fontWeight: FontWeight.normal),
     );
