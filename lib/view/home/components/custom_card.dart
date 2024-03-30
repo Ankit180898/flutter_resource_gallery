@@ -4,6 +4,8 @@ import 'package:flutter_resource_gallery/res/constants.dart';
 import 'package:flutter_resource_gallery/res/size_helpers.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import '../../../model/resource_model.dart';
 
 class CustomCard extends StatelessWidget {
@@ -19,14 +21,13 @@ class CustomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<SupabaseController>();
-    var resourceList = controller.resourcesList[index];
     return Obx(
       () => InkWell(
         onHover: (val) {
           isHovered.value = val;
         },
         onTap: () {
+          launchUrlString(resource.url);
           // Handle onTap if needed
         },
         child: AnimatedContainer(
@@ -60,33 +61,47 @@ class CustomCard extends StatelessWidget {
                       Expanded(
                         flex: 1,
                         child: Container(
-                          color: primaryColor,
-                          child: ListTile(
-                            title: Text(
-                              resourceList.title,
-                              style: salutationTextStyle(24, textColor),
-                            ),
-                            trailing: Container(
-                              decoration: BoxDecoration(
-                                  color: textColor,
-                                  shape: BoxShape.rectangle,
-                                  borderRadius: BorderRadius.circular(16)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: FittedBox(
-                                  child: Text(
-                                    resourceList.category,
-                                    style: salutationTextStyle(16, bgColor),
+                            color: primaryColor,
+                            child: ListTile(
+                              title: SizedBox(
+                                width: displayWidth(context) *
+                                    0.40, // Set a maximum width
+                                child: Text(
+                                  resource.title,
+                                  style: salutationTextStyle(24, textColor),
+                                  overflow: TextOverflow
+                                      .ellipsis, // Handle overflow with ellipsis
+                                ),
+                              ),
+                              trailing: SizedBox(
+                                width: displayWidth(context) * 0.25,
+                                child: Container(
+                                  height: displayHeight(context) * 0.05,
+                                  width: displayWidth(context) * 0.07,
+                                  decoration: BoxDecoration(
+                                      color: textColor,
+                                      shape: BoxShape.rectangle,
+                                      borderRadius: BorderRadius.circular(8)),
+                                  child: Center(
+                                    child: Text(
+                                      resource.category,
+                                      style: salutationTextStyle(16, bgColor),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            subtitle: Text(
-                              resourceList.content,
-                              style: normalText(16, textColor),
-                            ),
-                          ),
-                        ),
+                              subtitle: SizedBox(
+                                width: displayWidth(context) *
+                                    0.40, // Set a maximum width
+                                child: Text(
+                                  resource.content,
+                                  style: normalText(16, textColor),
+                                  maxLines: 3,
+                                  overflow: TextOverflow
+                                      .ellipsis, // Handle overflow with ellipsis
+                                ),
+                              ),
+                            )),
                       ),
                     ],
                   ),

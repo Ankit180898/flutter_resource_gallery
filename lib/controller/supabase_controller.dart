@@ -5,11 +5,17 @@ import '../model/resource_model.dart';
 
 class SupabaseController extends GetxController {
   var resourcesList = <ResourceModel>[].obs;
+  var filteredResourcesList = <ResourceModel>[].obs;
+  var selectedChip = ''.obs; // Track the selected chip
+
   var isLoading = false.obs;
+    var isLoadingList = false.obs;
+
   @override
   onInit() async {
     super.onInit();
     await getResources();
+    filterResourcesByCategory("All");
   }
 
   Future<void> addResource(String title, String content, String category,
@@ -39,5 +45,25 @@ class SupabaseController extends GetxController {
     resourcesList.assignAll(response.map((e) => ResourceModel.fromJson(e)));
 
     print("res:$resourcesList");
+  }
+
+  /// Filters resources based on the provided category.
+  void filterResourcesByCategory(String category) {
+    selectedChip.value = category; // Update selected chip
+
+    if (category == 'All') {
+          isLoadingList.value = true;
+
+      filteredResourcesList.assignAll(resourcesList); // Show all resources
+      isLoadingList.value = false;
+    } else {
+          isLoadingList.value = true;
+
+      // Filter resources by selected category
+      filteredResourcesList.assignAll(resourcesList
+          .where((resource) => resource.category == category)
+          .toList());
+      isLoadingList.value = false;
+    }
   }
 }

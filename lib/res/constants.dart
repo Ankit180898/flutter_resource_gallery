@@ -40,3 +40,13 @@ TextStyle normalText(double size, Color color) => GoogleFonts.epilogue(
           fontSize: size,
           fontWeight: FontWeight.normal),
     );
+
+List<String> categories = [
+  'All',
+  'Articles',
+  'Packages',
+  'UI',
+  'Projects',
+  'YTChannel',
+  'News'
+];

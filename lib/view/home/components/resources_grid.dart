@@ -17,29 +17,37 @@ class ResourcesGrid extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: displayWidth(context) * 0.05),
       child: Obx(
-        () => controller.isLoading.value == false
+        () => controller.isLoadingList.value == false
             ? GridView.builder(
                 shrinkWrap: true,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: Responsive.isDesktop(context)?3:1,
+                  crossAxisCount: Responsive.isDesktop(context) ? 3 : 1,
                   childAspectRatio: 0.7,
                   mainAxisSpacing: displayWidth(context) * 0.02,
                   crossAxisSpacing: displayWidth(context) * 0.02,
                 ),
-                itemCount: controller.resourcesList.length,
+                itemCount: controller.filteredResourcesList.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final resource = controller.resourcesList[
-                      index]; // Assuming `resourcesList` contains your `ResourceModel` instances
-
+                  final resource = controller.filteredResourcesList[index];
                   return CustomCard(
                     index: index,
                     isHovered: RxBool(false),
-                    resource:
-                        resource, // Initialize the hover state with GetX RxBool
+                    resource: resource,
                   );
                 },
               )
-            : Center(child: Lottie.asset('assets/logo_animation.json',fit: BoxFit.scaleDown,height: displayHeight(context)*0.25)),
+            : Center(
+                child: SizedBox(
+                  width:
+                      displayWidth(context) * 0.3, // Adjust the size as needed
+                  height:
+                      displayHeight(context) * 0.3, // Adjust the size as needed
+                  child: Lottie.asset(
+                    'assets/logo_animation.json',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
       ),
     );
   }

@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_resource_gallery/res/constants.dart';
 import 'package:flutter_resource_gallery/res/size_helpers.dart';
 import 'package:flutter_resource_gallery/view/home/components/custom_card.dart';
+import 'package:flutter_resource_gallery/view/home/components/footer_content.dart';
 import 'package:flutter_resource_gallery/view/home/components/resources_grid.dart';
 import 'package:get/get.dart';
 
 import '../../controller/supabase_controller.dart';
 import '../../res/responsive.dart';
+import 'components/tabs_view.dart';
 import 'components/main_header_text.dart';
 import 'components/top_nav_contents.dart';
 
@@ -22,14 +24,30 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           children: [
             const TopNavContents(),
-           SizedBox(
-              height: Responsive.isDesktop(context)?displayHeight(context) * 0.06:displayHeight(context) * 0.03,
+            SizedBox(
+              height: Responsive.isDesktop(context)
+                  ? displayHeight(context) * 0.06
+                  : displayHeight(context) * 0.03,
             ),
             MainHeaderText(),
             SizedBox(
-              height: Responsive.isDesktop(context)?displayHeight(context) * 0.10:displayHeight(context) * 0.06,
+              height: Responsive.isDesktop(context)
+                  ? displayHeight(context) * 0.07
+                  : displayHeight(context) * 0.06,
             ),
-            ResourcesGrid()
+            TabsView(),
+            SizedBox(
+              height: Responsive.isDesktop(context)
+                  ? displayHeight(context) * 0.07
+                  : displayHeight(context) * 0.06,
+            ),
+            ResourcesGrid(),
+             SizedBox(
+              height: Responsive.isDesktop(context)
+                  ? displayHeight(context) * 0.10
+                  : displayHeight(context) * 0.06,
+            ),
+            FooterContent()
           ],
         ),
       ),
