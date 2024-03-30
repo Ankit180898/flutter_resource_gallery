@@ -8,6 +8,7 @@ class CustomButton extends StatelessWidget {
   final double borderRadius;
   final double height;
   final double width;
+  final double textSize;
 
   const CustomButton({
     Key? key,
@@ -16,6 +17,7 @@ class CustomButton extends StatelessWidget {
     required this.color,
     required this.height,
     required this.width,
+    required this.textSize,
     this.borderRadius = 8.0,
   }) : super(key: key);
 
@@ -36,9 +38,10 @@ class CustomButton extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: FittedBox(
+                fit: BoxFit.scaleDown,
                 child: Text(
                   text,
-                  style: salutationTextStyle(24.0, iconColor),
+                  style: salutationTextStyle(textSize, iconColor),
                 ),
               ),
             ),

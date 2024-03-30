@@ -6,6 +6,7 @@ import 'package:flutter_resource_gallery/view/home/components/resources_grid.dar
 import 'package:get/get.dart';
 
 import '../../controller/supabase_controller.dart';
+import '../../res/responsive.dart';
 import 'components/main_header_text.dart';
 import 'components/top_nav_contents.dart';
 
@@ -21,12 +22,12 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           children: [
             const TopNavContents(),
-            SizedBox(
-              height: displayHeight(context) * 0.06,
+           SizedBox(
+              height: Responsive.isDesktop(context)?displayHeight(context) * 0.06:displayHeight(context) * 0.03,
             ),
             MainHeaderText(),
             SizedBox(
-              height: displayHeight(context) * 0.10,
+              height: Responsive.isDesktop(context)?displayHeight(context) * 0.10:displayHeight(context) * 0.06,
             ),
             ResourcesGrid()
           ],
