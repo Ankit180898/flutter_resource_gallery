@@ -9,6 +9,9 @@ const Color buttonColor = Color(0xff69E4EC);
 const Color iconColor = Color.fromRGBO(124, 124, 124, 1);
 const Color cardColor = Color.fromRGBO(27, 27, 27, 1);
 const Color textColor = Color(0xffffffff);
+const Color logoColor = Color(0xff005E99);
+//55C4FB
+const Color logoPrimaryColor = Color(0xff55C4FB);
 
 //30
 TextStyle salutationTextStyle(double size, Color color) => GoogleFonts.epilogue(
@@ -32,5 +35,8 @@ TextStyle titleText(double size, Color color) => GoogleFonts.epilogue(
 //24
 TextStyle normalText(double size, Color color) => GoogleFonts.epilogue(
       textStyle: TextStyle(
-          color: color, fontSize: size, fontWeight: FontWeight.normal),
+          height: 1.5,
+          color: color,
+          fontSize: size,
+          fontWeight: FontWeight.normal),
     );

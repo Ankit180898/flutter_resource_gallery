@@ -3,7 +3,9 @@ import 'package:flutter_resource_gallery/res/constants.dart';
 import 'package:flutter_resource_gallery/res/size_helpers.dart';
 import 'package:flutter_resource_gallery/view/home/components/custom_card.dart';
 import 'package:flutter_resource_gallery/view/home/components/resources_grid.dart';
+import 'package:get/get.dart';
 
+import '../../controller/supabase_controller.dart';
 import 'components/main_header_text.dart';
 import 'components/top_nav_contents.dart';
 
@@ -12,6 +14,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(SupabaseController());
     return Scaffold(
       backgroundColor: bgColor,
       body: SingleChildScrollView(

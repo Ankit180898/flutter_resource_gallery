@@ -9,38 +9,37 @@ class MainHeaderText extends StatelessWidget {
     final scaledFontSize = screenWidth / 20; // Adjust based on your preference
 
     return SizedBox(
-      width: displayWidth(context)*0.70,
-      height: displayHeight(context)*0.40,
+      width: displayWidth(context) * 0.70,
+      height: displayHeight(context) * 0.40,
       child: FittedBox(
         fit: BoxFit.scaleDown,
         child: Column(
           children: [
             RichText(
               text: TextSpan(
-                style: titleText(72, iconColor),
+                style: titleText(64, iconColor),
                 children: [
                   TextSpan(
-                    text: 'Assorted resources ',
-                    style: titleText(72,textColor)
-                  ),
+                      text: 'Cumulated resources ',
+                      style: titleText(64, logoPrimaryColor)),
                   TextSpan(
-                    text: 'for \nfrontend developers and \nweb designers.',
-                  ),
+                      text: 'for \nFlutter developers.',
+                      style: titleText(64, logoColor)),
                 ],
               ),
               textAlign: TextAlign.center,
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
             ),
-            SizedBox(height: displayHeight(context)*0.05),
+            SizedBox(height: displayHeight(context) * 0.05),
             RichText(
               text: TextSpan(
-                style: normalText(24, iconColor),
+                style: normalText(20, iconColor),
                 children: [
                   TextSpan(
-                    text:
-                        'Explore curated and handpicked goodies that enhance your \nworkflow and cultivate your growth as a developer and designer.',
-                  ),
+                      style: normalText(20, textColor),
+                      text:
+                          'Discover curated and handpicked resources to elevate your Flutter \ndevelopment journey, fostering growth in your skills as a developer and have fun.'),
                 ],
               ),
               textAlign: TextAlign.center,

@@ -1,20 +1,26 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_resource_gallery/controller/supabase_controller.dart';
 import 'package:flutter_resource_gallery/res/constants.dart';
 import 'package:flutter_resource_gallery/res/size_helpers.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-
-import '../../../controller/hover_controller.dart';
+import '../../../model/resource_model.dart';
 
 class CustomCard extends StatelessWidget {
   final int index;
+  final ResourceModel resource;
   RxBool isHovered; // GetX RxBool for hover state
 
-  CustomCard({super.key, required this.index, required this.isHovered});
+  CustomCard(
+      {super.key,
+      required this.index,
+      required this.isHovered,
+      required this.resource});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<SupabaseController>();
+    var resourceList = controller.resourcesList[index];
     return Obx(
       () => InkWell(
         onHover: (val) {
@@ -34,8 +40,7 @@ class CustomCard extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(20)),
                       side: BorderSide(
-                          color:
-                              isHovered.value ? Colors.blueAccent : iconColor,
+                          color: isHovered.value ? logoPrimaryColor : iconColor,
                           width: isHovered.value ? 6 : 4)),
                   elevation: 4,
                   child: Column(
@@ -44,10 +49,10 @@ class CustomCard extends StatelessWidget {
                         flex: 3,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
-                          child: Image.asset(
-                            "assets/logo.png",
-                            height: displayHeight(context) * 0.20,
-                            width: MediaQuery.of(context).size.width * 0.20,
+                          child: SvgPicture.asset(
+                            "assets/flutterdev_logo.svg",
+                            height: displayHeight(context) * 0.40,
+                            width: MediaQuery.of(context).size.width * 0.60,
                             fit: BoxFit.scaleDown,
                           ),
                         ),
@@ -58,7 +63,7 @@ class CustomCard extends StatelessWidget {
                           color: primaryColor,
                           child: ListTile(
                             title: Text(
-                              'Magazine Name',
+                              resourceList.title,
                               style: salutationTextStyle(24, textColor),
                             ),
                             trailing: Container(
@@ -70,14 +75,14 @@ class CustomCard extends StatelessWidget {
                                 padding: const EdgeInsets.all(8.0),
                                 child: FittedBox(
                                   child: Text(
-                                    'YT Channel',
+                                    resourceList.category,
                                     style: salutationTextStyle(16, bgColor),
                                   ),
                                 ),
                               ),
                             ),
                             subtitle: Text(
-                              "asdasdas",
+                              resourceList.content,
                               style: normalText(16, textColor),
                             ),
                           ),
@@ -95,7 +100,7 @@ class CustomCard extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8.0),
                           shape: BoxShape.rectangle,
-                          color: iconColor),
+                          color: logoPrimaryColor),
                       child: IconButton(
                           onPressed: () {},
                           icon: Icon(

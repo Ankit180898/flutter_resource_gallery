@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_resource_gallery/res/constants.dart';
 import 'package:flutter_resource_gallery/res/size_helpers.dart';
 import 'package:flutter_resource_gallery/view/home/components/custom_button.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class TopNavContents extends StatelessWidget {
   const TopNavContents({super.key});
@@ -25,14 +27,17 @@ class TopNavContents extends StatelessWidget {
                   SizedBox(
                     width: displayWidth(context) * 0.05,
                   ),
-                  Image.asset(
-                    "assets/logo.png",
-                    height: displayWidth(context) * 0.10,
-                    width: displayWidth(context) * 0.10,
+                  SvgPicture.asset(
+                    "assets/flutterstack.svg",
+                    height: displayHeight(context) * 0.05,
+                    width: displayWidth(context) * 0.07,
                   ),
                   Spacer(),
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        launchUrlString("https://ankitdev18.netlify.app/#/minified:Ds");
+                      },
+                    
                       child: FittedBox(
                           fit: BoxFit.scaleDown,
                           child: Text(

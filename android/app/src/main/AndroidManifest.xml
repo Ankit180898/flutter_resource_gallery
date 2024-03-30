@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
     <application
         android:label="flutter_resource_gallery"
         android:name="${applicationName}"
