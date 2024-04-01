@@ -8,6 +8,7 @@ import '../../../res/responsive.dart';
 import '../../../res/size_helpers.dart';
 
 class ResourcesGrid extends StatelessWidget {
+  
   const ResourcesGrid({super.key});
 
   @override
@@ -18,24 +19,62 @@ class ResourcesGrid extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: displayWidth(context) * 0.05),
       child: Obx(
         () => controller.isLoading.value == false
-            ? GridView.builder(
-                shrinkWrap: true,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: Responsive.isDesktop(context) ? 3 : 1,
-                  childAspectRatio: 0.7,
-                  mainAxisSpacing: displayWidth(context) * 0.02,
-                  crossAxisSpacing: displayWidth(context) * 0.02,
+            ? Responsive(
+              tablet: GridView.builder(
+                  shrinkWrap: true,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount:  2,
+                    childAspectRatio: 0.7,
+                    mainAxisSpacing: displayWidth(context) * 0.02,
+                    crossAxisSpacing: displayWidth(context) * 0.02,
+                  ),
+                  itemCount: controller.filteredResourcesList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final resource = controller.filteredResourcesList[index];
+                    return CustomCard(
+                      index: index,
+                      isHovered: RxBool(false),
+                      resource: resource,
+                    );
+                  },
                 ),
-                itemCount: controller.filteredResourcesList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final resource = controller.filteredResourcesList[index];
-                  return CustomCard(
-                    index: index,
-                    isHovered: RxBool(false),
-                    resource: resource,
-                  );
-                },
-              )
+              mobile: GridView.builder(
+                  shrinkWrap: true,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 1,
+                    childAspectRatio: 0.7,
+                    mainAxisSpacing: displayWidth(context) * 0.02,
+                    crossAxisSpacing: displayWidth(context) * 0.02,
+                  ),
+                  itemCount: controller.filteredResourcesList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final resource = controller.filteredResourcesList[index];
+                    return CustomCard(
+                      index: index,
+                      isHovered: RxBool(false),
+                      resource: resource,
+                    );
+                  },
+                ),
+              desktop: GridView.builder(
+                  shrinkWrap: true,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: Responsive.isDesktop(context) ? 3 : 1,
+                    childAspectRatio: 0.7,
+                    mainAxisSpacing: displayWidth(context) * 0.02,
+                    crossAxisSpacing: displayWidth(context) * 0.02,
+                  ),
+                  itemCount: controller.filteredResourcesList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final resource = controller.filteredResourcesList[index];
+                    return CustomCard(
+                      index: index,
+                      isHovered: RxBool(false),
+                      resource: resource,
+                    );
+                  },
+                ),
+            )
             : Align(
                 alignment: Alignment.center,
                 child: SizedBox(

@@ -50,3 +50,12 @@ List<String> categories = [
   'YTChannel',
   'News'
 ];
+List<String> dropDownCategories = [
+  'Articles',
+  'Packages',
+  'UI',
+  'Projects',
+  'YTChannel',
+  'News'
+];
+

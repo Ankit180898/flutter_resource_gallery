@@ -125,7 +125,17 @@ class TopNavContents extends StatelessWidget {
                     CustomButton(
                       textSize: 18,
                       text: "Submit Resource",
-                      onPressed: () {},
+                      onPressed: () {
+                         showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Dialog(
+                                  
+                                  elevation: 4,
+                                  backgroundColor: Colors.transparent,
+                                  child: SubmissionFrom());
+                            });
+                      },
                       color: textColor,
                       height: displayHeight(context) * 0.06,
                       width: displayWidth(context) * 0.15,
@@ -172,7 +182,17 @@ class TopNavContents extends StatelessWidget {
                     CustomButton(
                       textSize: 18,
                       text: "Submit Resource",
-                      onPressed: () {},
+                      onPressed: () {
+                         showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Dialog(
+                                  
+                                  elevation: 4,
+                                  backgroundColor: Colors.transparent,
+                                  child: SubmissionFrom());
+                            });
+                      },
                       color: textColor,
                       height: displayHeight(context) * 0.06,
                       width: displayWidth(context) * 0.30,
