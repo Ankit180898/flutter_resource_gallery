@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_resource_gallery/controller/supabase_controller.dart';
 import 'package:flutter_resource_gallery/res/constants.dart';
 import 'package:flutter_resource_gallery/res/size_helpers.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../../../model/resource_model.dart';
 
@@ -59,47 +57,58 @@ class CustomCard extends StatelessWidget {
                         ),
                       ),
                       Expanded(
-                        flex: 1,
                         child: Container(
                             color: primaryColor,
-                            child: ListTile(
-                              title: SizedBox(
-                                width: displayWidth(context) *
-                                    0.40, // Set a maximum width
-                                child: Text(
-                                  resource.title,
-                                  style: salutationTextStyle(24, textColor),
-                                  overflow: TextOverflow
-                                      .ellipsis, // Handle overflow with ellipsis
-                                ),
-                              ),
-                              trailing: SizedBox(
-                                width: displayWidth(context) * 0.25,
-                                child: Container(
-                                  height: displayHeight(context) * 0.05,
-                                  width: displayWidth(context) * 0.07,
-                                  decoration: BoxDecoration(
-                                      color: textColor,
-                                      shape: BoxShape.rectangle,
-                                      borderRadius: BorderRadius.circular(8)),
-                                  child: Center(
-                                    child: Text(
-                                      resource.category,
-                                      style: salutationTextStyle(16, bgColor),
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    flex: 2,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          resource.title,
+                                          maxLines: 1,
+                                          style: salutationTextStyle(
+                                              24, textColor),
+                                          overflow: TextOverflow
+                                              .ellipsis, // Handle overflow with ellipsis
+                                        ),
+                                        Text(
+                                          resource.content,
+                                          style: normalText(16, textColor),
+                                          maxLines: 2,
+                                          overflow: TextOverflow
+                                              .ellipsis, // Handle overflow with ellipsis
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ),
-                              ),
-                              subtitle: SizedBox(
-                                width: displayWidth(context) *
-                                    0.40, // Set a maximum width
-                                child: Text(
-                                  resource.content,
-                                  style: normalText(16, textColor),
-                                  maxLines: 3,
-                                  overflow: TextOverflow
-                                      .ellipsis, // Handle overflow with ellipsis
-                                ),
+                                  Spacer(),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                      height: displayWidth(context) * 0.04,
+                                      width: displayWidth(context) * 0.07,
+                                      decoration: BoxDecoration(
+                                          color: textColor,
+                                          shape: BoxShape.rectangle,
+                                          borderRadius:
+                                              BorderRadius.circular(8)),
+                                      child: Center(
+                                        child: Text(
+                                          resource.category,
+                                          style:
+                                              salutationTextStyle(16, bgColor),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             )),
                       ),
@@ -131,3 +140,52 @@ class CustomCard extends StatelessWidget {
     );
   }
 }
+
+
+
+// ListTile(
+                            //   title: SizedBox(
+                            //     width: displayWidth(context) *
+                            //         0.10, // Set a maximum width
+                            //     child: Wrap(
+                            //       children: [
+                            //         FittedBox(
+                            //           fit: BoxFit.scaleDown,
+                            //           child: Text(
+                            //             resource.title,
+                            //             maxLines: 2,
+                            //             style:
+                            //                 salutationTextStyle(24, textColor),
+                            //             overflow: TextOverflow
+                            //                 .ellipsis, // Handle overflow with ellipsis
+                            //           ),
+                            //         ),
+                            //       ],
+                            //     ),
+                            //   ),
+                            //   trailing: Container(
+                            //     height: displayWidth(context) * 0.04,
+                            //     width: displayWidth(context) * 0.07,
+                            //     decoration: BoxDecoration(
+                            //         color: textColor,
+                            //         shape: BoxShape.rectangle,
+                            //         borderRadius: BorderRadius.circular(8)),
+                            //     child: Center(
+                            //       child: Text(
+                            //         resource.category,
+                            //         style: salutationTextStyle(16, bgColor),
+                            //       ),
+                            //     ),
+                            //   ),
+                            //   subtitle: SizedBox(
+                            //     width: displayWidth(context) *
+                            //         0.40, // Set a maximum width
+                            //     child: Text(
+                            //       resource.content,
+                            //       style: normalText(16, textColor),
+                            //       maxLines: 3,
+                            //       overflow: TextOverflow
+                            //           .ellipsis, // Handle overflow with ellipsis
+                            //     ),
+                            //   ),
+                            // )),

@@ -20,10 +20,10 @@ class _CategoriesDropdownState extends State<CategoriesDropdown> {
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
-      dropdownColor: textColor,
-
-      style: normalText(16, bgColor),
-      focusColor: textColor,
+      dropdownColor: bgColor,
+      
+      style: normalText(16, textColor),
+      
       value: widget.selectedCategory,
       onChanged: widget.onChanged,
       items: widget.categories.map((String category) {

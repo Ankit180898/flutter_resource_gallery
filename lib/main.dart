@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_resource_gallery/view/home/home_screen.dart';
+import 'package:get/get.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<void> main() async {
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'FlutterDev Resources',
       theme: ThemeData(

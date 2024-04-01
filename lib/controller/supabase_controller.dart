@@ -9,7 +9,8 @@ class SupabaseController extends GetxController {
   var selectedChip = ''.obs; // Track the selected chip
 
   var isLoading = false.obs;
-    var isLoadingList = false.obs;
+  var isLoadingList = false.obs;
+  var isSubmitted = false.obs;
 
   @override
   onInit() async {
@@ -18,18 +19,28 @@ class SupabaseController extends GetxController {
     filterResourcesByCategory("All");
   }
 
-  Future<void> addResource(String title, String content, String category,
-      String url, String imageUrl) async {
-    final response = await supabase.from('resources').insert({
-      'title': title,
-      'content': content,
-      'category': category,
-      'url': url,
-      'image_url': imageUrl,
-    });
+  Future<void> addResource(
+      String title, String content, String category, String url) async {
+    try {
+      // Set loading to true to display the loader
+      isSubmitted.value = true;
 
-    if (response.error != null) {
-      throw Exception('Failed to add resource: ${response.error!.message}');
+      // Add resource
+      final response = await supabase.from('resources').insert({
+        'title': title,
+        'content': content,
+        'category': category,
+        'url': url,
+      });
+
+      // If resource added successfully, fetch resources again to refresh the list
+      await getResources();
+      filterResourcesByCategory('All');
+    } catch (e) {
+      throw Exception('Failed to add resource: $e');
+    } finally {
+      // Set loading to false to hide the loader
+      isSubmitted.value = false;
     }
   }
 
@@ -48,17 +59,17 @@ class SupabaseController extends GetxController {
   }
 
   /// Filters resources based on the provided category.
-  void filterResourcesByCategory(String category) {
+  void filterResourcesByCategory(String category) async {
     selectedChip.value = category; // Update selected chip
 
     if (category == 'All') {
-          isLoadingList.value = true;
+      isLoadingList.value = true;
 
       filteredResourcesList.assignAll(resourcesList); // Show all resources
       isLoadingList.value = false;
     } else {
-          isLoadingList.value = true;
-
+      isLoadingList.value = true;
+      await getResources();
       // Filter resources by selected category
       filteredResourcesList.assignAll(resourcesList
           .where((resource) => resource.category == category)

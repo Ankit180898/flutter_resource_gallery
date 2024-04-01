@@ -17,7 +17,7 @@ class ResourcesGrid extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: displayWidth(context) * 0.05),
       child: Obx(
-        () => controller.isLoadingList.value == false
+        () => controller.isLoading.value == false
             ? GridView.builder(
                 shrinkWrap: true,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -36,12 +36,13 @@ class ResourcesGrid extends StatelessWidget {
                   );
                 },
               )
-            : Center(
+            : Align(
+                alignment: Alignment.center,
                 child: SizedBox(
                   width:
-                      displayWidth(context) * 0.3, // Adjust the size as needed
+                      displayWidth(context) * 0.2, // Adjust the size as needed
                   height:
-                      displayHeight(context) * 0.3, // Adjust the size as needed
+                      displayHeight(context) * 0.2, // Adjust the size as needed
                   child: Lottie.asset(
                     'assets/logo_animation.json',
                     fit: BoxFit.cover,
