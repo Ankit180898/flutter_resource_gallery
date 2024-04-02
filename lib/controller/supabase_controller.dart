@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_resource_gallery/main.dart';
 import 'package:get/get.dart';
 import '../model/resource_model.dart';

@@ -14,6 +14,7 @@ class TabsView extends StatelessWidget {
     
 
     return Wrap(
+      
       spacing: 12.0,
       runSpacing: 4.0,
       children: categories.map((category) {

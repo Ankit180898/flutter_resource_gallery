@@ -3,7 +3,6 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../res/constants.dart';
 import '../../../res/responsive.dart';
-import '../../../res/size_helpers.dart';
 
 class FooterContent extends StatelessWidget {
   const FooterContent({super.key});
@@ -45,7 +44,7 @@ class FooterContent extends StatelessWidget {
         mobile: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Divider(
+            const Divider(
               thickness: 0.1,
               color: iconColor,
             ),

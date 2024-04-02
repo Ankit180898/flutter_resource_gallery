@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_resource_gallery/res/constants.dart';
 import 'package:flutter_resource_gallery/res/size_helpers.dart';
-import 'package:flutter_resource_gallery/view/home/components/custom_card.dart';
 import 'package:flutter_resource_gallery/view/home/components/footer_content.dart';
 import 'package:flutter_resource_gallery/view/home/components/resources_grid.dart';
 import 'package:get/get.dart';
@@ -35,19 +35,19 @@ class HomeScreen extends StatelessWidget {
                   ? displayHeight(context) * 0.07
                   : displayHeight(context) * 0.06,
             ),
-            TabsView(),
+            const TabsView(),
             SizedBox(
               height: Responsive.isDesktop(context)
                   ? displayHeight(context) * 0.07
                   : displayHeight(context) * 0.06,
             ),
-            ResourcesGrid(),
-             SizedBox(
+            const SingleChildScrollView(child: ResourcesGrid()),
+            SizedBox(
               height: Responsive.isDesktop(context)
                   ? displayHeight(context) * 0.10
                   : displayHeight(context) * 0.06,
             ),
-            FooterContent()
+            const FooterContent()
           ],
         ),
       ),

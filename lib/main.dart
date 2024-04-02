@@ -12,7 +12,7 @@ Future<void> main() async {
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRoaWRqdWd5c2pyZnJiZGZrY2RjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTE2NTMxNDgsImV4cCI6MjAyNzIyOTE0OH0.tYIr65U-W77Y61kLKnYbqaO3ITd6ds0FDxquCiPAeKI',
   );
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 final supabase = Supabase.instance.client;
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      home: HomeScreen(),
+      home: const HomeScreen(),
     );
   }
 }

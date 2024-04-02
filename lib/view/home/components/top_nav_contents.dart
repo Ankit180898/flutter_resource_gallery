@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_resource_gallery/res/constants.dart';
 import 'package:flutter_resource_gallery/res/responsive.dart';
 import 'package:flutter_resource_gallery/res/size_helpers.dart';
@@ -34,7 +33,7 @@ class TopNavContents extends StatelessWidget {
                       height: displayHeight(context) * 0.05,
                       width: displayWidth(context) * 0.07,
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -58,7 +57,7 @@ class TopNavContents extends StatelessWidget {
                             showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
-                                  return Dialog(
+                                  return const Dialog(
                                       elevation: 4,
                                       backgroundColor: Colors.transparent,
                                       child: SubmissionFrom());
@@ -79,7 +78,7 @@ class TopNavContents extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: displayWidth(context) * 0.05),
-                child: Divider(
+                child: const Divider(
                   thickness: 0.3,
                   color: iconColor,
                 ),
@@ -88,7 +87,7 @@ class TopNavContents extends StatelessWidget {
           ),
         ),
       ),
-      tablet: Container(
+      tablet: SizedBox(
         height: displayHeight(context) * 0.15,
         child: Center(
           child: Column(
@@ -108,7 +107,7 @@ class TopNavContents extends StatelessWidget {
                     height: displayHeight(context) * 0.03,
                     width: displayWidth(context) * 0.05,
                   ),
-                  Spacer(),
+                  const Spacer(),
                   TextButton(
                       onPressed: () {
                         launchUrlString(
@@ -122,22 +121,22 @@ class TopNavContents extends StatelessWidget {
                     width: 8.0,
                   ),
                   CustomButton(
-                    textSize: 18,
                     textColor: bgColor,
+                    textSize: 18,
                     text: "Submit Resource",
                     onPressed: () {
                       showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return Dialog(
+                            return const Dialog(
                                 elevation: 4,
                                 backgroundColor: Colors.transparent,
                                 child: SubmissionFrom());
                           });
                     },
                     color: textColor,
-                    height: displayHeight(context) * 0.05,
-                    width: displayWidth(context) * 0.17,
+                    height: displayHeight(context) * 0.06,
+                    width: displayWidth(context) * 0.20,
                   ),
                   SizedBox(
                     width: displayWidth(context) * 0.05,
@@ -147,7 +146,7 @@ class TopNavContents extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: displayWidth(context) * 0.05),
-                child: Divider(
+                child: const Divider(
                   thickness: 0.3,
                   color: iconColor,
                 ),
@@ -156,7 +155,7 @@ class TopNavContents extends StatelessWidget {
           ),
         ),
       ),
-      mobile: Container(
+      mobile: SizedBox(
         height: displayHeight(context) * 0.12,
         child: Center(
           child: Column(
@@ -175,7 +174,7 @@ class TopNavContents extends StatelessWidget {
                     height: displayHeight(context) * 0.05,
                     width: displayWidth(context) * 0.07,
                   ),
-                  Spacer(),
+                  const Spacer(),
                   CustomButton(
                     textColor: bgColor,
                     textSize: 18,
@@ -184,7 +183,7 @@ class TopNavContents extends StatelessWidget {
                       showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return Dialog(
+                            return const Dialog(
                                 elevation: 4,
                                 backgroundColor: Colors.transparent,
                                 child: SubmissionFrom());
@@ -202,7 +201,7 @@ class TopNavContents extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: displayWidth(context) * 0.05),
-                child: Divider(
+                child: const Divider(
                   thickness: 0.3,
                   color: iconColor,
                 ),

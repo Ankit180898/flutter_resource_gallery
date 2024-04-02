@@ -23,8 +23,8 @@ class MainHeaderText extends StatelessWidget {
       ),
       mobile: buildHeaderText(
         context,
-        titleSize1: 46,
-        titleSize2: 46,
+        titleSize1: 38,
+        titleSize2: 38,
         normalSize1: 14,
         normalSize2: 14,
       ),

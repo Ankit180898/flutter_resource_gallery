@@ -6,10 +6,10 @@ class CategoriesDropdown extends StatefulWidget {
   final ValueChanged<String?>? onChanged;
 
    CategoriesDropdown({
-    Key? key,
+    super.key,
     required this.selectedCategory,
     required this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   _CategoriesDropdownState createState() => _CategoriesDropdownState();

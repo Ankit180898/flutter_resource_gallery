@@ -20,7 +20,9 @@ class ResourcesGrid extends StatelessWidget {
         () => controller.isLoading.value == false
             ? Responsive(
                 tablet: GridView.builder(
+                  physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     childAspectRatio: 0.85,
@@ -38,6 +40,9 @@ class ResourcesGrid extends StatelessWidget {
                   },
                 ),
                 mobile: GridView.builder(
+                                    physics: NeverScrollableScrollPhysics(),
+
+                  scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 1,
@@ -56,7 +61,10 @@ class ResourcesGrid extends StatelessWidget {
                   },
                 ),
                 desktop: GridView.builder(
+                                    physics: NeverScrollableScrollPhysics(),
+
                   shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: Responsive.isDesktop(context) ? 3 : 1,
                     childAspectRatio: 0.7,

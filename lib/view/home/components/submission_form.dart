@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_resource_gallery/controller/supabase_controller.dart';
 import 'package:flutter_resource_gallery/res/constants.dart';
@@ -10,7 +11,7 @@ import '../../../res/responsive.dart';
 import '../../../res/size_helpers.dart';
 
 class SubmissionFrom extends StatefulWidget {
-  const SubmissionFrom({Key? key});
+  const SubmissionFrom({super.key});
 
   @override
   State<SubmissionFrom> createState() => _SubmissionFromState();
@@ -20,9 +21,9 @@ class _SubmissionFromState extends State<SubmissionFrom> {
   var controller = Get.find<SupabaseController>();
   final _formKey = GlobalKey<FormState>(); // Form key for validation
   var selectedCategory; // Default selected category
-  TextEditingController _titleController = TextEditingController();
-  TextEditingController _contentController = TextEditingController();
-  TextEditingController _urlController = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _contentController = TextEditingController();
+  final TextEditingController _urlController = TextEditingController();
 
   @override
   void dispose() {
@@ -37,14 +38,14 @@ class _SubmissionFromState extends State<SubmissionFrom> {
   Widget build(BuildContext context) {
     return Responsive(
       extraLargeScreen: AnimatedContainer(
-        duration: Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 200),
         height: displayHeight(context) * 0.55,
         width: displayWidth(context) * 0.30,
         decoration: BoxDecoration(
             shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
             border: Border.all(color: iconColor, width: 2),
-            gradient: LinearGradient(
+            gradient: const LinearGradient(
                 colors: [bgColor, cardColor],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight)),
@@ -67,7 +68,7 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                               children: [
                                 Text('Submit Resources',
                                     style: titleText(24, textColor)),
-                                SizedBox(height: 16.0),
+                                const SizedBox(height: 16.0),
                                 TextFormField(
                                   controller: _titleController,
                                   decoration: InputDecoration(
@@ -76,7 +77,7 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                                     hintStyle: normalText(16, iconColor),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(24.0),
-                                      borderSide: BorderSide(color: textColor),
+                                      borderSide: const BorderSide(color: textColor),
                                     ),
                                   ),
                                   validator: (value) {
@@ -88,7 +89,7 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                                   keyboardType: TextInputType.text,
                                   style: normalText(16, textColor),
                                 ),
-                                SizedBox(height: 16.0),
+                                const SizedBox(height: 16.0),
                                 TextFormField(
                                   controller: _contentController,
                                   decoration: InputDecoration(
@@ -98,7 +99,7 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                                     hintStyle: normalText(16, iconColor),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(24.0),
-                                      borderSide: BorderSide(color: textColor),
+                                      borderSide: const BorderSide(color: textColor),
                                     ),
                                   ),
                                   validator: (value) {
@@ -110,7 +111,7 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                                   keyboardType: TextInputType.text,
                                   style: normalText(16, textColor),
                                 ),
-                                SizedBox(height: 16.0),
+                                const SizedBox(height: 16.0),
                                 TextFormField(
                                   controller: _urlController,
                                   decoration: InputDecoration(
@@ -120,7 +121,7 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                                     hintStyle: normalText(16, iconColor),
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(24.0),
-                                      borderSide: BorderSide(color: textColor),
+                                      borderSide: const BorderSide(color: textColor),
                                     ),
                                   ),
                                   validator: (value) {
@@ -132,7 +133,7 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                                   keyboardType: TextInputType.text,
                                   style: normalText(16, textColor),
                                 ),
-                                SizedBox(height: 16.0),
+                                const SizedBox(height: 16.0),
                                 CategoriesDropdown(
                                   selectedCategory: selectedCategory,
                                   onChanged: (String? newVal) {
@@ -141,7 +142,7 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                                     });
                                   },
                                 ),
-                                SizedBox(height: 16.0),
+                                const SizedBox(height: 16.0),
                                 CustomButton(
                                   textColor: bgColor,
                                   textSize: 24,
@@ -150,8 +151,10 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                                     // Validate form fields
                                     if (_formKey.currentState!.validate()) {
                                       // Form fields are valid, submit the resource
-                                      print(
+                                      if (kDebugMode) {
+                                        print(
                                           'Form is valid. Submitting resource...');
+                                      }
                                       // You can submit the resource here
                                       await _submitResource(context);
                                     } else {
@@ -176,14 +179,14 @@ class _SubmissionFromState extends State<SubmissionFrom> {
         ),
       ),
       desktop: AnimatedContainer(
-        duration: Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 200),
         height: displayHeight(context) * 0.60,
         width: displayWidth(context) * 0.30,
         decoration: BoxDecoration(
             shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
             border: Border.all(color: iconColor, width: 2),
-            gradient: LinearGradient(
+            gradient: const LinearGradient(
                 colors: [bgColor, cardColor],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight)),
@@ -197,11 +200,11 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                     child: Form(
                       key: _formKey, // Set form key
                       child: ListView(
-                        padding: EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(16.0),
                         children: [
                           Text('Submit Resources',
                               style: titleText(24, textColor)),
-                          SizedBox(height: 16.0),
+                          const SizedBox(height: 16.0),
                           TextFormField(
                             controller: _titleController,
                             decoration: InputDecoration(
@@ -209,7 +212,7 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                               hintStyle: normalText(16, iconColor),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(24.0),
-                                borderSide: BorderSide(color: textColor),
+                                borderSide: const BorderSide(color: textColor),
                               ),
                             ),
                             validator: (value) {
@@ -221,7 +224,7 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                             keyboardType: TextInputType.text,
                             style: normalText(16, textColor),
                           ),
-                          SizedBox(height: 16.0),
+                          const SizedBox(height: 16.0),
                           TextFormField(
                             controller: _contentController,
                             decoration: InputDecoration(
@@ -230,7 +233,7 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                               hintStyle: normalText(16, iconColor),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(24.0),
-                                borderSide: BorderSide(color: textColor),
+                                borderSide: const BorderSide(color: textColor),
                               ),
                             ),
                             validator: (value) {
@@ -242,7 +245,7 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                             keyboardType: TextInputType.text,
                             style: normalText(16, textColor),
                           ),
-                          SizedBox(height: 16.0),
+                          const SizedBox(height: 16.0),
                           TextFormField(
                             controller: _urlController,
                             decoration: InputDecoration(
@@ -251,7 +254,7 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                               hintStyle: normalText(16, iconColor),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(24.0),
-                                borderSide: BorderSide(color: textColor),
+                                borderSide: const BorderSide(color: textColor),
                               ),
                             ),
                             validator: (value) {
@@ -263,7 +266,7 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                             keyboardType: TextInputType.text,
                             style: normalText(16, textColor),
                           ),
-                          SizedBox(height: 16.0),
+                          const SizedBox(height: 16.0),
                           CategoriesDropdown(
                             selectedCategory: selectedCategory,
                             onChanged: (String? newVal) {
@@ -272,7 +275,7 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                               });
                             },
                           ),
-                          SizedBox(height: 16.0),
+                          const SizedBox(height: 16.0),
                           CustomButton(
                             textColor: bgColor,
                             textSize: 24,
@@ -281,7 +284,9 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                               // Validate form fields
                               if (_formKey.currentState!.validate()) {
                                 // Form fields are valid, submit the resource
-                                print('Form is valid. Submitting resource...');
+                                if (kDebugMode) {
+                                  print('Form is valid. Submitting resource...');
+                                }
                                 // You can submit the resource here
                                 await _submitResource(context);
                               } else {
@@ -303,14 +308,14 @@ class _SubmissionFromState extends State<SubmissionFrom> {
         ),
       ),
       tablet: AnimatedContainer(
-        duration: Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 200),
         height: displayHeight(context) * 0.54,
         width: displayWidth(context) * 0.50,
         decoration: BoxDecoration(
             shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
             border: Border.all(color: iconColor, width: 2),
-            gradient: LinearGradient(
+            gradient: const LinearGradient(
                 colors: [bgColor, cardColor],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight)),
@@ -325,11 +330,11 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                       key: _formKey, // Set form key
                       child: ListView(
                         shrinkWrap: true,
-                        padding: EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(16.0),
                         children: [
                           Text('Submit Resources',
                               style: titleText(24, textColor)),
-                          SizedBox(height: 24.0),
+                          const SizedBox(height: 24.0),
                           TextFormField(
                             controller: _titleController,
                             decoration: InputDecoration(
@@ -337,7 +342,7 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                               hintStyle: normalText(16, iconColor),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(24.0),
-                                borderSide: BorderSide(color: textColor),
+                                borderSide: const BorderSide(color: textColor),
                               ),
                             ),
                             validator: (value) {
@@ -349,7 +354,7 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                             keyboardType: TextInputType.text,
                             style: normalText(16, textColor),
                           ),
-                          SizedBox(height: 16.0),
+                          const SizedBox(height: 16.0),
                           TextFormField(
                             controller: _contentController,
                             decoration: InputDecoration(
@@ -358,7 +363,7 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                               hintStyle: normalText(16, iconColor),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(24.0),
-                                borderSide: BorderSide(color: textColor),
+                                borderSide: const BorderSide(color: textColor),
                               ),
                             ),
                             validator: (value) {
@@ -370,7 +375,7 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                             keyboardType: TextInputType.text,
                             style: normalText(16, textColor),
                           ),
-                          SizedBox(height: 16.0),
+                          const SizedBox(height: 16.0),
                           TextFormField(
                             controller: _urlController,
                             decoration: InputDecoration(
@@ -379,7 +384,7 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                               hintStyle: normalText(16, iconColor),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(24.0),
-                                borderSide: BorderSide(color: textColor),
+                                borderSide: const BorderSide(color: textColor),
                               ),
                             ),
                             validator: (value) {
@@ -391,7 +396,7 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                             keyboardType: TextInputType.text,
                             style: normalText(16, textColor),
                           ),
-                          SizedBox(height: 16.0),
+                          const SizedBox(height: 16.0),
                           CategoriesDropdown(
                             selectedCategory: selectedCategory,
                             onChanged: (String? newVal) {
@@ -400,7 +405,7 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                               });
                             },
                           ),
-                          SizedBox(height: 16.0),
+                          const SizedBox(height: 16.0),
                           CustomButton(
                             textColor: bgColor,
                             textSize: 24,
@@ -409,13 +414,17 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                               // Validate form fields
                               if (_formKey.currentState!.validate()) {
                                 // Form fields are valid, submit the resource
-                                print('Form is valid. Submitting resource...');
+                                if (kDebugMode) {
+                                  print('Form is valid. Submitting resource...');
+                                }
                                 // You can submit the resource here
                                 await _submitResource(context);
                               } else {
                                 // Form fields are invalid, show error message
-                                print(
+                                if (kDebugMode) {
+                                  print(
                                     'Form is invalid. Please correct errors.');
+                                }
                               }
                             },
                             color: textColor,
@@ -431,14 +440,14 @@ class _SubmissionFromState extends State<SubmissionFrom> {
         ),
       ),
       mobile: AnimatedContainer(
-        duration: Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 200),
         height: displayHeight(context) * 0.52,
         width: displayWidth(context),
         decoration: BoxDecoration(
             shape: BoxShape.rectangle,
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
             border: Border.all(color: iconColor, width: 2),
-            gradient: LinearGradient(
+            gradient: const LinearGradient(
                 colors: [bgColor, cardColor],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight)),
@@ -457,14 +466,14 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                         interactive: true,
                         thickness:
                             8, // Customize the thickness of the scrollbar
-                        radius: Radius.circular(
+                        radius: const Radius.circular(
                             10), // Customize the radius of the scrollbar
                         child: ListView(
-                          padding: EdgeInsets.all(16.0),
+                          padding: const EdgeInsets.all(16.0),
                           children: [
                             Text('Submit Resources',
                                 style: titleText(24, textColor)),
-                            SizedBox(height: 16.0),
+                            const SizedBox(height: 16.0),
                             TextFormField(
                               controller: _titleController,
                               decoration: InputDecoration(
@@ -472,7 +481,7 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                                 hintStyle: normalText(16, iconColor),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(24.0),
-                                  borderSide: BorderSide(color: textColor),
+                                  borderSide: const BorderSide(color: textColor),
                                 ),
                               ),
                               validator: (value) {
@@ -484,7 +493,7 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                               keyboardType: TextInputType.text,
                               style: normalText(16, textColor),
                             ),
-                            SizedBox(height: 16.0),
+                            const SizedBox(height: 16.0),
                             TextFormField(
                               controller: _contentController,
                               decoration: InputDecoration(
@@ -493,7 +502,7 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                                 hintStyle: normalText(16, iconColor),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(24.0),
-                                  borderSide: BorderSide(color: textColor),
+                                  borderSide: const BorderSide(color: textColor),
                                 ),
                               ),
                               validator: (value) {
@@ -505,7 +514,7 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                               keyboardType: TextInputType.text,
                               style: normalText(16, textColor),
                             ),
-                            SizedBox(height: 16.0),
+                            const SizedBox(height: 16.0),
                             TextFormField(
                               controller: _urlController,
                               decoration: InputDecoration(
@@ -514,7 +523,7 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                                 hintStyle: normalText(16, iconColor),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(24.0),
-                                  borderSide: BorderSide(color: textColor),
+                                  borderSide: const BorderSide(color: textColor),
                                 ),
                               ),
                               validator: (value) {
@@ -526,7 +535,7 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                               keyboardType: TextInputType.text,
                               style: normalText(16, textColor),
                             ),
-                            SizedBox(height: 16.0),
+                            const SizedBox(height: 16.0),
                             CategoriesDropdown(
                               selectedCategory: selectedCategory,
                               onChanged: (String? newVal) {
@@ -535,7 +544,7 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                                 });
                               },
                             ),
-                            SizedBox(height: 16.0),
+                            const SizedBox(height: 16.0),
                             CustomButton(
                               textColor: bgColor,
                               textSize: 24,
@@ -544,14 +553,18 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                                 // Validate form fields
                                 if (_formKey.currentState!.validate()) {
                                   // Form fields are valid, submit the resource
-                                  print(
+                                  if (kDebugMode) {
+                                    print(
                                       'Form is valid. Submitting resource...');
+                                  }
                                   // You can submit the resource here
                                   await _submitResource(context);
                                 } else {
                                   // Form fields are invalid, show error message
-                                  print(
+                                  if (kDebugMode) {
+                                    print(
                                       'Form is invalid. Please correct errors.');
+                                  }
                                 }
                               },
                               color: textColor,
@@ -594,7 +607,7 @@ class _SubmissionFromState extends State<SubmissionFrom> {
 
       // Show Snackbar
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Resource submitted successfully'),
           backgroundColor: Colors.green,
         ),
