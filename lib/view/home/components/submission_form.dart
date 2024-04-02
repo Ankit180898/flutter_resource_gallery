@@ -36,6 +36,145 @@ class _SubmissionFromState extends State<SubmissionFrom> {
   @override
   Widget build(BuildContext context) {
     return Responsive(
+      extraLargeScreen: AnimatedContainer(
+        duration: Duration(milliseconds: 200),
+        height: displayHeight(context) * 0.55,
+        width: displayWidth(context) * 0.30,
+        decoration: BoxDecoration(
+            shape: BoxShape.rectangle,
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+            border: Border.all(color: iconColor, width: 2),
+            gradient: LinearGradient(
+                colors: [bgColor, cardColor],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight)),
+        child: Obx(
+          () => controller.isSubmitted.value == false
+              ? Card(
+                  color: Colors.transparent,
+                  elevation: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Form(
+                      key: _formKey, // Set form key
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16.0, vertical: 16.0),
+                        child: Scrollbar(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Submit Resources',
+                                    style: titleText(24, textColor)),
+                                SizedBox(height: 16.0),
+                                TextFormField(
+                                  controller: _titleController,
+                                  decoration: InputDecoration(
+                                    hoverColor: textColor,
+                                    labelText: "Enter Title",
+                                    hintStyle: normalText(16, iconColor),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(24.0),
+                                      borderSide: BorderSide(color: textColor),
+                                    ),
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Title cannot be empty';
+                                    }
+                                    return null;
+                                  },
+                                  keyboardType: TextInputType.text,
+                                  style: normalText(16, textColor),
+                                ),
+                                SizedBox(height: 16.0),
+                                TextFormField(
+                                  controller: _contentController,
+                                  decoration: InputDecoration(
+                                    hoverColor: textColor,
+                                    labelText: "Enter content",
+                                    fillColor: textColor,
+                                    hintStyle: normalText(16, iconColor),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(24.0),
+                                      borderSide: BorderSide(color: textColor),
+                                    ),
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Content cannot be empty';
+                                    }
+                                    return null;
+                                  },
+                                  keyboardType: TextInputType.text,
+                                  style: normalText(16, textColor),
+                                ),
+                                SizedBox(height: 16.0),
+                                TextFormField(
+                                  controller: _urlController,
+                                  decoration: InputDecoration(
+                                    hoverColor: textColor,
+                                    labelText: "Enter source url",
+                                    fillColor: textColor,
+                                    hintStyle: normalText(16, iconColor),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(24.0),
+                                      borderSide: BorderSide(color: textColor),
+                                    ),
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'URL cannot be empty';
+                                    }
+                                    return null;
+                                  },
+                                  keyboardType: TextInputType.text,
+                                  style: normalText(16, textColor),
+                                ),
+                                SizedBox(height: 16.0),
+                                CategoriesDropdown(
+                                  selectedCategory: selectedCategory,
+                                  onChanged: (String? newVal) {
+                                    setState(() {
+                                      selectedCategory = newVal;
+                                    });
+                                  },
+                                ),
+                                SizedBox(height: 16.0),
+                                CustomButton(
+                                  textColor: bgColor,
+                                  textSize: 24,
+                                  text: "Submit Resource",
+                                  onPressed: () async {
+                                    // Validate form fields
+                                    if (_formKey.currentState!.validate()) {
+                                      // Form fields are valid, submit the resource
+                                      print(
+                                          'Form is valid. Submitting resource...');
+                                      // You can submit the resource here
+                                      await _submitResource(context);
+                                    } else {
+                                      // Form fields are invalid, show error message
+                                      print(
+                                          'Form is invalid. Please correct errors.');
+                                    }
+                                  },
+                                  color: textColor,
+                                  height: displayHeight(context) * 0.06,
+                                  width: displayWidth(context),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              : Center(child: Lottie.asset("success.json")),
+        ),
+      ),
       desktop: AnimatedContainer(
         duration: Duration(milliseconds: 200),
         height: displayHeight(context) * 0.60,
@@ -48,85 +187,94 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                 colors: [bgColor, cardColor],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight)),
-        child: Card(
-          color: Colors.transparent,
-          elevation: 0,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Form(
-              key: _formKey, // Set form key
-              child: ListView(
-                padding: EdgeInsets.all(16.0),
-                children: [
-                  Text('Submit Resources', style: titleText(24, textColor)),
-                  SizedBox(height: 16.0),
-                  TextFormField(
-                    controller: _titleController,
-                    decoration: InputDecoration(
-                      labelText: "Enter Title",
-                      hintStyle: normalText(16, iconColor),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(24.0),
-                        borderSide: BorderSide(color: textColor),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Title cannot be empty';
-                      }
-                      return null;
-                    },
-                    keyboardType: TextInputType.text,
-                    style: normalText(16, textColor),
-                  ),
-                  SizedBox(height: 16.0),
-                  TextFormField(
-                    controller: _contentController,
-                    decoration: InputDecoration(
-                      labelText: "Enter content",
-                      fillColor: textColor,
-                      hintStyle: normalText(16, iconColor),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(24.0),
-                        borderSide: BorderSide(color: textColor),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Content cannot be empty';
-                      }
-                      return null;
-                    },
-                    keyboardType: TextInputType.text,
-                    style: normalText(16, textColor),
-                  ),
-                  SizedBox(height: 16.0),
-                  TextFormField(
-                    controller: _urlController,
-                    decoration: InputDecoration(
-                      labelText: "Enter source url",
-                      fillColor: textColor,
-                      hintStyle: normalText(16, iconColor),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(24.0),
-                        borderSide: BorderSide(color: textColor),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'URL cannot be empty';
-                      }
-                      return null;
-                    },
-                    keyboardType: TextInputType.text,
-                    style: normalText(16, textColor),
-                  ),
-                  SizedBox(height: 16.0),
-                  CategoriesDropdown(),
-                  SizedBox(height: 16.0),
-                  Obx(
-                    () => controller.isSubmitted.value == false
-                        ? CustomButton(
+        child: Obx(
+          () => controller.isSubmitted.value == false
+              ? Card(
+                  color: Colors.transparent,
+                  elevation: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Form(
+                      key: _formKey, // Set form key
+                      child: ListView(
+                        padding: EdgeInsets.all(16.0),
+                        children: [
+                          Text('Submit Resources',
+                              style: titleText(24, textColor)),
+                          SizedBox(height: 16.0),
+                          TextFormField(
+                            controller: _titleController,
+                            decoration: InputDecoration(
+                              labelText: "Enter Title",
+                              hintStyle: normalText(16, iconColor),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24.0),
+                                borderSide: BorderSide(color: textColor),
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Title cannot be empty';
+                              }
+                              return null;
+                            },
+                            keyboardType: TextInputType.text,
+                            style: normalText(16, textColor),
+                          ),
+                          SizedBox(height: 16.0),
+                          TextFormField(
+                            controller: _contentController,
+                            decoration: InputDecoration(
+                              labelText: "Enter content",
+                              fillColor: textColor,
+                              hintStyle: normalText(16, iconColor),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24.0),
+                                borderSide: BorderSide(color: textColor),
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Content cannot be empty';
+                              }
+                              return null;
+                            },
+                            keyboardType: TextInputType.text,
+                            style: normalText(16, textColor),
+                          ),
+                          SizedBox(height: 16.0),
+                          TextFormField(
+                            controller: _urlController,
+                            decoration: InputDecoration(
+                              labelText: "Enter source url",
+                              fillColor: textColor,
+                              hintStyle: normalText(16, iconColor),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24.0),
+                                borderSide: BorderSide(color: textColor),
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'URL cannot be empty';
+                              }
+                              return null;
+                            },
+                            keyboardType: TextInputType.text,
+                            style: normalText(16, textColor),
+                          ),
+                          SizedBox(height: 16.0),
+                          CategoriesDropdown(
+                            selectedCategory: selectedCategory,
+                            onChanged: (String? newVal) {
+                              setState(() {
+                                selectedCategory = newVal;
+                              });
+                            },
+                          ),
+                          SizedBox(height: 16.0),
+                          CustomButton(
+                            textColor: bgColor,
                             textSize: 24,
                             text: "Submit Resource",
                             onPressed: () async {
@@ -146,18 +294,18 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                             height: displayHeight(context) * 0.06,
                             width: displayWidth(context) * 0.12,
                           )
-                        : Center(child: Lottie.asset("assets/success.json")),
+                        ],
+                      ),
+                    ),
                   ),
-                ],
-              ),
-            ),
-          ),
+                )
+              : Center(child: Lottie.asset("success.json")),
         ),
       ),
       tablet: AnimatedContainer(
         duration: Duration(milliseconds: 200),
-        height: displayHeight(context) * 0.60,
-        width: displayWidth(context) * 0.30,
+        height: displayHeight(context) * 0.54,
+        width: displayWidth(context) * 0.50,
         decoration: BoxDecoration(
             shape: BoxShape.rectangle,
             borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -166,86 +314,95 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                 colors: [bgColor, cardColor],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight)),
-        child: Card(
-          color: Colors.transparent,
-          elevation: 0,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Form(
-              key: _formKey, // Set form key
-              child: ListView(
-                shrinkWrap: true,
-                padding: EdgeInsets.all(16.0),
-                children: [
-                  Text('Submit Resources', style: titleText(24, textColor)),
-                  SizedBox(height: 16.0),
-                  TextFormField(
-                    controller: _titleController,
-                    decoration: InputDecoration(
-                      labelText: "Enter Title",
-                      hintStyle: normalText(16, iconColor),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(24.0),
-                        borderSide: BorderSide(color: textColor),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Title cannot be empty';
-                      }
-                      return null;
-                    },
-                    keyboardType: TextInputType.text,
-                    style: normalText(16, textColor),
-                  ),
-                  SizedBox(height: 16.0),
-                  TextFormField(
-                    controller: _contentController,
-                    decoration: InputDecoration(
-                      labelText: "Enter content",
-                      fillColor: textColor,
-                      hintStyle: normalText(16, iconColor),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(24.0),
-                        borderSide: BorderSide(color: textColor),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Content cannot be empty';
-                      }
-                      return null;
-                    },
-                    keyboardType: TextInputType.text,
-                    style: normalText(16, textColor),
-                  ),
-                  SizedBox(height: 16.0),
-                  TextFormField(
-                    controller: _urlController,
-                    decoration: InputDecoration(
-                      labelText: "Enter source url",
-                      fillColor: textColor,
-                      hintStyle: normalText(16, iconColor),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(24.0),
-                        borderSide: BorderSide(color: textColor),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'URL cannot be empty';
-                      }
-                      return null;
-                    },
-                    keyboardType: TextInputType.text,
-                    style: normalText(16, textColor),
-                  ),
-                  SizedBox(height: 16.0),
-                  CategoriesDropdown(),
-                  SizedBox(height: 16.0),
-                  Obx(
-                    () => controller.isSubmitted.value == false
-                        ? CustomButton(
+        child: Obx(
+          () => controller.isSubmitted.value == false
+              ? Card(
+                  color: Colors.transparent,
+                  elevation: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Form(
+                      key: _formKey, // Set form key
+                      child: ListView(
+                        shrinkWrap: true,
+                        padding: EdgeInsets.all(16.0),
+                        children: [
+                          Text('Submit Resources',
+                              style: titleText(24, textColor)),
+                          SizedBox(height: 24.0),
+                          TextFormField(
+                            controller: _titleController,
+                            decoration: InputDecoration(
+                              labelText: "Enter Title",
+                              hintStyle: normalText(16, iconColor),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24.0),
+                                borderSide: BorderSide(color: textColor),
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Title cannot be empty';
+                              }
+                              return null;
+                            },
+                            keyboardType: TextInputType.text,
+                            style: normalText(16, textColor),
+                          ),
+                          SizedBox(height: 16.0),
+                          TextFormField(
+                            controller: _contentController,
+                            decoration: InputDecoration(
+                              labelText: "Enter content",
+                              fillColor: textColor,
+                              hintStyle: normalText(16, iconColor),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24.0),
+                                borderSide: BorderSide(color: textColor),
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Content cannot be empty';
+                              }
+                              return null;
+                            },
+                            keyboardType: TextInputType.text,
+                            style: normalText(16, textColor),
+                          ),
+                          SizedBox(height: 16.0),
+                          TextFormField(
+                            controller: _urlController,
+                            decoration: InputDecoration(
+                              labelText: "Enter source url",
+                              fillColor: textColor,
+                              hintStyle: normalText(16, iconColor),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24.0),
+                                borderSide: BorderSide(color: textColor),
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'URL cannot be empty';
+                              }
+                              return null;
+                            },
+                            keyboardType: TextInputType.text,
+                            style: normalText(16, textColor),
+                          ),
+                          SizedBox(height: 16.0),
+                          CategoriesDropdown(
+                            selectedCategory: selectedCategory,
+                            onChanged: (String? newVal) {
+                              setState(() {
+                                selectedCategory = newVal;
+                              });
+                            },
+                          ),
+                          SizedBox(height: 16.0),
+                          CustomButton(
+                            textColor: bgColor,
                             textSize: 24,
                             text: "Submit Resource",
                             onPressed: () async {
@@ -265,12 +422,12 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                             height: displayHeight(context) * 0.06,
                             width: displayWidth(context) * 0.12,
                           )
-                        : Center(child: Lottie.asset("assets/success.json")),
+                        ],
+                      ),
+                    ),
                   ),
-                ],
-              ),
-            ),
-          ),
+                )
+              : Center(child: Lottie.asset("success.json")),
         ),
       ),
       mobile: AnimatedContainer(
@@ -285,92 +442,102 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                 colors: [bgColor, cardColor],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight)),
-        child: Card(
-          color: Colors.transparent,
-          elevation: 0,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Form(
-              key: _formKey, // Set form key
-              child: Scrollbar(
-                thumbVisibility: true,
-                trackVisibility: true,
-                interactive: true,
-                thickness: 8, // Customize the thickness of the scrollbar
-                radius: Radius.circular(
-                    10), // Customize the radius of the scrollbar
-                child: ListView(
-                  padding: EdgeInsets.all(16.0),
-                  children: [
-                    Text('Submit Resources', style: titleText(24, textColor)),
-                    SizedBox(height: 16.0),
-                    TextFormField(
-                      controller: _titleController,
-                      decoration: InputDecoration(
-                        labelText: "Enter Title",
-                        hintStyle: normalText(16, iconColor),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(24.0),
-                          borderSide: BorderSide(color: textColor),
-                        ),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Title cannot be empty';
-                        }
-                        return null;
-                      },
-                      keyboardType: TextInputType.text,
-                      style: normalText(16, textColor),
-                    ),
-                    SizedBox(height: 16.0),
-                    TextFormField(
-                      controller: _contentController,
-                      decoration: InputDecoration(
-                        labelText: "Enter content",
-                        fillColor: textColor,
-                        hintStyle: normalText(16, iconColor),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(24.0),
-                          borderSide: BorderSide(color: textColor),
-                        ),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Content cannot be empty';
-                        }
-                        return null;
-                      },
-                      keyboardType: TextInputType.text,
-                      style: normalText(16, textColor),
-                    ),
-                    SizedBox(height: 16.0),
-                    TextFormField(
-                      controller: _urlController,
-                      decoration: InputDecoration(
-                        labelText: "Enter source url",
-                        fillColor: textColor,
-                        hintStyle: normalText(16, iconColor),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(24.0),
-                          borderSide: BorderSide(color: textColor),
-                        ),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'URL cannot be empty';
-                        }
-                        return null;
-                      },
-                      keyboardType: TextInputType.text,
-                      style: normalText(16, textColor),
-                    ),
-                    SizedBox(height: 16.0),
-                    CategoriesDropdown(),
-                    SizedBox(height: 16.0),
-                    Obx(
-                      () => controller.isSubmitted.value == false
-                          ? CustomButton(
+        child: Obx(
+          () => controller.isSubmitted.value == false
+              ? Card(
+                  color: Colors.transparent,
+                  elevation: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Form(
+                      key: _formKey, // Set form key
+                      child: Scrollbar(
+                        thumbVisibility: true,
+                        trackVisibility: true,
+                        interactive: true,
+                        thickness:
+                            8, // Customize the thickness of the scrollbar
+                        radius: Radius.circular(
+                            10), // Customize the radius of the scrollbar
+                        child: ListView(
+                          padding: EdgeInsets.all(16.0),
+                          children: [
+                            Text('Submit Resources',
+                                style: titleText(24, textColor)),
+                            SizedBox(height: 16.0),
+                            TextFormField(
+                              controller: _titleController,
+                              decoration: InputDecoration(
+                                labelText: "Enter Title",
+                                hintStyle: normalText(16, iconColor),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(24.0),
+                                  borderSide: BorderSide(color: textColor),
+                                ),
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Title cannot be empty';
+                                }
+                                return null;
+                              },
+                              keyboardType: TextInputType.text,
+                              style: normalText(16, textColor),
+                            ),
+                            SizedBox(height: 16.0),
+                            TextFormField(
+                              controller: _contentController,
+                              decoration: InputDecoration(
+                                labelText: "Enter content",
+                                fillColor: textColor,
+                                hintStyle: normalText(16, iconColor),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(24.0),
+                                  borderSide: BorderSide(color: textColor),
+                                ),
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Content cannot be empty';
+                                }
+                                return null;
+                              },
+                              keyboardType: TextInputType.text,
+                              style: normalText(16, textColor),
+                            ),
+                            SizedBox(height: 16.0),
+                            TextFormField(
+                              controller: _urlController,
+                              decoration: InputDecoration(
+                                labelText: "Enter source url",
+                                fillColor: textColor,
+                                hintStyle: normalText(16, iconColor),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(24.0),
+                                  borderSide: BorderSide(color: textColor),
+                                ),
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'URL cannot be empty';
+                                }
+                                return null;
+                              },
+                              keyboardType: TextInputType.text,
+                              style: normalText(16, textColor),
+                            ),
+                            SizedBox(height: 16.0),
+                            CategoriesDropdown(
+                              selectedCategory: selectedCategory,
+                              onChanged: (String? newVal) {
+                                setState(() {
+                                  selectedCategory = newVal;
+                                });
+                              },
+                            ),
+                            SizedBox(height: 16.0),
+                            CustomButton(
+                              textColor: bgColor,
                               textSize: 24,
                               text: "Submit Resource",
                               onPressed: () async {
@@ -391,13 +558,16 @@ class _SubmissionFromState extends State<SubmissionFrom> {
                               height: displayHeight(context) * 0.06,
                               width: displayWidth(context) * 0.12,
                             )
-                          : Center(child: Lottie.asset("assets/success.json")),
+                          ],
+                        ),
+                      ),
                     ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+                  ),
+                )
+              : Center(
+                  child: Lottie.asset(
+                  "success.json",
+                )),
         ),
       ),
     );
@@ -420,7 +590,6 @@ class _SubmissionFromState extends State<SubmissionFrom> {
       _titleController.clear();
       _contentController.clear();
       _urlController.clear();
-      selectedCategory = categories.first;
       Get.back();
 
       // Show Snackbar

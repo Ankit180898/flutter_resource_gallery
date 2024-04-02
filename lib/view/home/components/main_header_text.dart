@@ -7,50 +7,92 @@ class MainHeaderText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Responsive(
-      desktop: buildHeaderText(context, 64, 64, 20, 20),
-      tablet: buildHeaderText(context, 64, 64, 20, 20),
-      mobile: buildHeaderText(context, 44, 44, 18, 18),
+      desktop: buildHeaderText(
+        context,
+        titleSize1: 72,
+        titleSize2: 72,
+        normalSize1: 20,
+        normalSize2: 20,
+      ),
+      tablet: buildHeaderText(
+        context,
+        titleSize1: 54,
+        titleSize2: 54,
+        normalSize1: 20,
+        normalSize2: 20,
+      ),
+      mobile: buildHeaderText(
+        context,
+        titleSize1: 46,
+        titleSize2: 46,
+        normalSize1: 14,
+        normalSize2: 14,
+      ),
     );
   }
 
-  Widget buildHeaderText(BuildContext context, double titleSize1,
-      double titleSize2, double normalSize1, double normalSize2) {
+  Widget buildHeaderText(
+    BuildContext context, {
+    required double titleSize1,
+    required double titleSize2,
+    required double normalSize1,
+    required double normalSize2,
+  }) {
     return SizedBox(
       width: displayWidth(context) * 0.70,
-      height: displayHeight(context) * 0.42,
-      child: ListView(
+      height: displayHeight(context) * 0.45,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          RichText(
-            text: TextSpan(
-              style: titleText(titleSize1, iconColor),
-              children: [
-                TextSpan(
-                  text: 'Cumulated resources ',
-                  style: titleText(titleSize1, logoPrimaryColor),
+          Flexible(
+            flex: 3,
+           
+            child: RichText(
+              text: TextSpan(
+                style: TextStyle(
+                  fontSize: titleSize1,
+                  color: iconColor,
                 ),
-                TextSpan(
-                  text: 'for \nFlutter devs.',
-                  style: titleText(titleSize2, logoColor),
-                ),
-              ],
+                children: [
+                  TextSpan(
+                    text: 'Cumulated resources ',
+                    style: titleText(
+                      titleSize1,
+                      logoPrimaryColor,
+                    ),
+                  ),
+                  TextSpan(
+                    text: 'for ',
+                    style: titleText(
+                      titleSize2,
+                      logoColor,
+                    ),
+                  ),
+                  TextSpan(
+                    text: 'Flutter devs.',
+                    style: titleText(
+                      titleSize1,
+                      logoColor,
+                    ),
+                  ),
+                ],
+              ),
+              textAlign: TextAlign.center,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
             ),
-            textAlign: TextAlign.center,
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
           ),
-          SizedBox(height: displayHeight(context) * 0.05),
-          RichText(
-            text: TextSpan(
-              style: normalText(normalSize1, iconColor),
-              children: [
-                TextSpan(
-                  style: normalText(normalSize1, textColor),
-                  text:
-                      'Discover curated and handpicked resources to elevate your Flutter \ndevelopment journey, fostering growth in your skills as a developer and have fun.',
-                ),
-              ],
+          SizedBox(height: 10,),
+          Flexible(
+            flex: 1,
+            child: Text(
+              "Explore curated resources to enhance your Flutter skills and enjoy your development journey!",
+              style: normalText(
+                normalSize1,
+                textColor,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
           ),
         ],
       ),

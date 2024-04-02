@@ -1,6 +1,6 @@
 {
-    "name": "flutter_resource_gallery",
-    "short_name": "flutter_resource_gallery",
+    "name": "FlutterStack",
+    "short_name": "FlutterStack",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

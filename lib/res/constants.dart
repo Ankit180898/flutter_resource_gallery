@@ -7,7 +7,7 @@ const Color bgColor = Color.fromRGBO(15, 15, 15, 1.0);
 const Color buttonColor = Color(0xff69E4EC);
 
 const Color iconColor = Color.fromRGBO(124, 124, 124, 1);
-const Color cardColor = Color.fromRGBO(27, 27, 27, 1);
+const Color cardColor = Color(0xFF1B1B1B);
 const Color textColor = Color(0xffffffff);
 const Color logoColor = Color(0xff005E99);
 //55C4FB

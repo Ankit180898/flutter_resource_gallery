@@ -8,7 +8,6 @@ import '../../../res/responsive.dart';
 import '../../../res/size_helpers.dart';
 
 class ResourcesGrid extends StatelessWidget {
-  
   const ResourcesGrid({super.key});
 
   @override
@@ -20,11 +19,11 @@ class ResourcesGrid extends StatelessWidget {
       child: Obx(
         () => controller.isLoading.value == false
             ? Responsive(
-              tablet: GridView.builder(
+                tablet: GridView.builder(
                   shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount:  2,
-                    childAspectRatio: 0.7,
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.85,
                     mainAxisSpacing: displayWidth(context) * 0.02,
                     crossAxisSpacing: displayWidth(context) * 0.02,
                   ),
@@ -38,11 +37,11 @@ class ResourcesGrid extends StatelessWidget {
                     );
                   },
                 ),
-              mobile: GridView.builder(
+                mobile: GridView.builder(
                   shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 1,
-                    childAspectRatio: 0.7,
+                    childAspectRatio: 0.8,
                     mainAxisSpacing: displayWidth(context) * 0.02,
                     crossAxisSpacing: displayWidth(context) * 0.02,
                   ),
@@ -56,7 +55,7 @@ class ResourcesGrid extends StatelessWidget {
                     );
                   },
                 ),
-              desktop: GridView.builder(
+                desktop: GridView.builder(
                   shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: Responsive.isDesktop(context) ? 3 : 1,
@@ -74,7 +73,7 @@ class ResourcesGrid extends StatelessWidget {
                     );
                   },
                 ),
-            )
+              )
             : Align(
                 alignment: Alignment.center,
                 child: SizedBox(
@@ -83,7 +82,7 @@ class ResourcesGrid extends StatelessWidget {
                   height:
                       displayHeight(context) * 0.2, // Adjust the size as needed
                   child: Lottie.asset(
-                    'assets/logo_animation.json',
+                    'logo_animation.json',
                     fit: BoxFit.cover,
                   ),
                 ),

@@ -5,6 +5,7 @@ class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final Color color;
+  final Color textColor;
   final double borderRadius;
   final double height;
   final double width;
@@ -18,6 +19,7 @@ class CustomButton extends StatelessWidget {
     required this.height,
     required this.width,
     required this.textSize,
+    required this.textColor,
     this.borderRadius = 8.0,
   }) : super(key: key);
 
@@ -41,7 +43,7 @@ class CustomButton extends StatelessWidget {
                 fit: BoxFit.scaleDown,
                 child: Text(
                   text,
-                  style: salutationTextStyle(textSize, iconColor),
+                  style: salutationTextStyle(textSize, textColor),
                 ),
               ),
             ),
