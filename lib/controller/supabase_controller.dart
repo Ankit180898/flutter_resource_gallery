@@ -1,4 +1,5 @@
 import 'package:flutter_resource_gallery/main.dart';
+import 'package:flutter_resource_gallery/res/constants.dart';
 import 'package:get/get.dart';
 import '../model/resource_model.dart';
 
@@ -10,12 +11,14 @@ class SupabaseController extends GetxController {
   var isLoading = false.obs;
   var isLoadingList = false.obs;
   var isSubmitted = false.obs;
+  var countResourcesList = <Map<String, dynamic>>[].obs;
 
   @override
   onInit() async {
     super.onInit();
     await getResources();
     filterResourcesByCategory("All");
+    await getCountResources();
   }
 
   Future<void> addResource(
@@ -55,6 +58,19 @@ class SupabaseController extends GetxController {
     resourcesList.assignAll(response.map((e) => ResourceModel.fromJson(e)));
 
     print("res:$resourcesList");
+  }
+
+  Future<void> getCountResources() async {
+    for (var category in dropDownCategories) {
+      final response = await supabase
+          .from('resources').select()
+          .eq('category', category)
+          .single()
+          .count();
+      countResourcesList.assignAll(response.data['category']);
+    }
+
+    print("countres: $countResourcesList");
   }
 
   /// Filters resources based on the provided category.

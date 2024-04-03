@@ -11,10 +11,8 @@ class TabsView extends StatelessWidget {
     final controller = Get.find<SupabaseController>();
 
     // Select the "All" category chip by default when the widget is initialized
-    
 
     return Wrap(
-      
       spacing: 12.0,
       runSpacing: 4.0,
       children: categories.map((category) {
@@ -22,13 +20,23 @@ class TabsView extends StatelessWidget {
           onTap: () {
             controller.filterResourcesByCategory(category);
           },
-          child: Obx(() => Chip(
-                side:const BorderSide(color: iconColor),
-                label: Text(category, style: normalText(18, controller.selectedChip.value == category?bgColor:textColor)),
-                backgroundColor: controller.selectedChip.value == category
-                    ? textColor
-                    : bgColor,
-              )),
+          child: Obx(() => Stack(
+            children: [
+              Chip(
+                    side: const BorderSide(color: iconColor),
+                    label: Text(category,
+                        style: normalText(
+                            18,
+                            controller.selectedChip.value == category
+                                ? bgColor
+                                : textColor)),
+                    backgroundColor: controller.selectedChip.value == category
+                        ? textColor
+                        : bgColor,
+                  ),
+                  Positioned(right: 3, top: 3, child: Text("2",style: normalText(14, iconColor),))
+            ],
+          )),
         );
       }).toList(),
     );
