@@ -25,11 +25,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      initialRoute: '/',
+      getPages: [
+        GetPage(name: '/', page: () => const HomeScreen()),
+      ],
       title: 'FlutterStack',
       theme: ThemeData(
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
     );
   }
 }
