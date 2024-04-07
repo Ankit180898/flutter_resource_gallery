@@ -1,3 +1,4 @@
+import 'package:animated_cursor/animated_cursor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_resource_gallery/res/constants.dart';
@@ -20,35 +21,41 @@ class HomeScreen extends StatelessWidget {
     final controller = Get.put(SupabaseController());
     return Scaffold(
       backgroundColor: bgColor,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const TopNavContents(),
-            SizedBox(
-              height: Responsive.isDesktop(context)
-                  ? displayHeight(context) * 0.06
-                  : displayHeight(context) * 0.03,
-            ),
-            MainHeaderText(),
-            SizedBox(
-              height: Responsive.isDesktop(context)
-                  ? displayHeight(context) * 0.07
-                  : displayHeight(context) * 0.06,
-            ),
-            const TabsView(),
-            SizedBox(
-              height: Responsive.isDesktop(context)
-                  ? displayHeight(context) * 0.07
-                  : displayHeight(context) * 0.06,
-            ),
-            const SingleChildScrollView(child: ResourcesGrid()),
-            SizedBox(
-              height: Responsive.isDesktop(context)
-                  ? displayHeight(context) * 0.10
-                  : displayHeight(context) * 0.06,
-            ),
-            const FooterContent()
-          ],
+      body: AnimatedCursor(
+        circleColor: logoColor,
+        dotColor: textColor,
+        backgroundColor: Colors.transparent,
+        borderWidth: 2,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const TopNavContents(),
+              SizedBox(
+                height: Responsive.isDesktop(context)
+                    ? displayHeight(context) * 0.06
+                    : displayHeight(context) * 0.03,
+              ),
+              MainHeaderText(),
+              SizedBox(
+                height: Responsive.isDesktop(context)
+                    ? displayHeight(context) * 0.07
+                    : displayHeight(context) * 0.06,
+              ),
+              const TabsView(),
+              SizedBox(
+                height: Responsive.isDesktop(context)
+                    ? displayHeight(context) * 0.07
+                    : displayHeight(context) * 0.06,
+              ),
+              const SingleChildScrollView(child: ResourcesGrid()),
+              SizedBox(
+                height: Responsive.isDesktop(context)
+                    ? displayHeight(context) * 0.10
+                    : displayHeight(context) * 0.06,
+              ),
+              const FooterContent()
+            ],
+          ),
         ),
       ),
     );

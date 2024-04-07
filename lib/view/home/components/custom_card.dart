@@ -74,7 +74,7 @@ class CustomCard extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: Container(
-                    color: primaryColor,
+                    color: bgColor,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Row(
