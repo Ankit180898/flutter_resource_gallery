@@ -20,7 +20,7 @@ class ResourcesGrid extends StatelessWidget {
         () => controller.isLoading.value == false
             ? Responsive(
                 tablet: GridView.builder(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
