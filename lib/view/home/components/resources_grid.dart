@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_resource_gallery/controller/supabase_controller.dart';
+import 'package:flutter_resource_gallery/res/constants.dart';
 import 'package:flutter_resource_gallery/view/home/components/custom_card.dart';
+import 'package:flutter_resource_gallery/view/home/home_screen.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../res/responsive.dart';
 import '../../../res/size_helpers.dart';
+
 
 class ResourcesGrid extends StatelessWidget {
   const ResourcesGrid({super.key});
@@ -19,67 +22,89 @@ class ResourcesGrid extends StatelessWidget {
       child: Obx(
         () => controller.isLoading.value == false
             ? Responsive(
-                tablet: GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.85,
-                    mainAxisSpacing: displayWidth(context) * 0.02,
-                    crossAxisSpacing: displayWidth(context) * 0.02,
+                tablet: RawScrollbar(
+                  thumbVisibility: true,
+                  thumbColor: iconColor,
+                  radius: const Radius.circular(8),
+                  thickness: 4,
+                  controller: ScrollController(),
+                  child: GridView.builder(
+                    controller: ScrollController(),
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.85,
+                      mainAxisSpacing: displayWidth(context) * 0.02,
+                      crossAxisSpacing: displayWidth(context) * 0.02,
+                    ),
+                    itemCount: controller.filteredResourcesList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final resource = controller.filteredResourcesList[index];
+                      return CustomCard(
+                        index: index,
+                        isHovered: RxBool(false),
+                        resource: resource,
+                      );
+                    },
                   ),
-                  itemCount: controller.filteredResourcesList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final resource = controller.filteredResourcesList[index];
-                    return CustomCard(
-                      index: index,
-                      isHovered: RxBool(false),
-                      resource: resource,
-                    );
-                  },
                 ),
-                mobile: GridView.builder(
-                                    physics: NeverScrollableScrollPhysics(),
-
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1,
-                    childAspectRatio: 0.8,
-                    mainAxisSpacing: displayWidth(context) * 0.02,
-                    crossAxisSpacing: displayWidth(context) * 0.02,
+                mobile: RawScrollbar(
+                  thumbVisibility: true,
+                  thumbColor: iconColor,
+                  radius: const Radius.circular(8),
+                  thickness: 4,
+                  interactive: true,
+                  controller: ScrollController(),
+                  child: GridView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 1,
+                      childAspectRatio: 0.8,
+                      mainAxisSpacing: displayWidth(context) * 0.02,
+                      crossAxisSpacing: displayWidth(context) * 0.02,
+                    ),
+                    itemCount: controller.filteredResourcesList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final resource = controller.filteredResourcesList[index];
+                      return CustomCard(
+                        index: index,
+                        isHovered: RxBool(false),
+                        resource: resource,
+                      );
+                    },
                   ),
-                  itemCount: controller.filteredResourcesList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final resource = controller.filteredResourcesList[index];
-                    return CustomCard(
-                      index: index,
-                      isHovered: RxBool(false),
-                      resource: resource,
-                    );
-                  },
                 ),
-                desktop: GridView.builder(
-                                    physics: NeverScrollableScrollPhysics(),
-
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: Responsive.isDesktop(context) ? 3 : 1,
-                    childAspectRatio: 0.7,
-                    mainAxisSpacing: displayWidth(context) * 0.02,
-                    crossAxisSpacing: displayWidth(context) * 0.02,
+                desktop: RawScrollbar(
+                  thumbVisibility: true,
+                  interactive: true,
+                  thumbColor: logoColor,
+                  radius: const Radius.circular(8),
+                  thickness: 4,
+                  controller: ScrollController(),
+                  child: GridView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: Responsive.isDesktop(context) ? 3 : 1,
+                      childAspectRatio: 0.7,
+                      mainAxisSpacing: displayWidth(context) * 0.02,
+                      crossAxisSpacing: displayWidth(context) * 0.02,
+                    ),
+                    itemCount: controller.filteredResourcesList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final resource = controller.filteredResourcesList[index];
+                      return CustomCard(
+                        index: index,
+                        isHovered: RxBool(false),
+                        resource: resource,
+                      );
+                    },
                   ),
-                  itemCount: controller.filteredResourcesList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final resource = controller.filteredResourcesList[index];
-                    return CustomCard(
-                      index: index,
-                      isHovered: RxBool(false),
-                      resource: resource,
-                    );
-                  },
                 ),
               )
             : Align(
