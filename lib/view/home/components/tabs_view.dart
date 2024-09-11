@@ -20,8 +20,7 @@ class TabsView extends StatelessWidget {
           onTap: () {
             controller.filterResourcesByCategory(category);
           },
-          child: Obx(() => Stack(
-            children: [
+          child: Obx(() => 
               Chip(
                     side: const BorderSide(color: iconColor),
                     label: Text(category,
@@ -34,9 +33,8 @@ class TabsView extends StatelessWidget {
                         ? textColor
                         : bgColor,
                   ),
-                  Positioned(right: 3, top: 3, child: Text("2",style: normalText(14, iconColor),))
-            ],
-          )),
+             
+          ),
         );
       }).toList(),
     );

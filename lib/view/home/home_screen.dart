@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_resource_gallery/res/constants.dart';
 import 'package:flutter_resource_gallery/res/size_helpers.dart';
 import 'package:flutter_resource_gallery/view/home/components/footer_content.dart';
@@ -40,7 +41,8 @@ class HomeScreen extends StatelessWidget {
                   ? displayHeight(context) * 0.07
                   : displayHeight(context) * 0.06,
             ),
-            const SingleChildScrollView(child: ResourcesGrid()),
+            SingleChildScrollView(
+                controller: ScrollController(), child: const ResourcesGrid()),
             SizedBox(
               height: Responsive.isDesktop(context)
                   ? displayHeight(context) * 0.10

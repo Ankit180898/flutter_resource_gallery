@@ -7,6 +7,7 @@ import 'package:lottie/lottie.dart';
 
 import '../../../res/responsive.dart';
 import '../../../res/size_helpers.dart';
+  final ScrollController _scrollController = ScrollController(); // Custom ScrollController
 
 class ResourcesGrid extends StatelessWidget {
   const ResourcesGrid({super.key});
@@ -25,7 +26,7 @@ class ResourcesGrid extends StatelessWidget {
                   thumbColor: iconColor,
                   radius: const Radius.circular(8),
                   thickness: 4,
-                  controller: ScrollController(),
+                  controller: _scrollController,
                   child: GridView.builder(
                     controller: ScrollController(),
                     physics: const AlwaysScrollableScrollPhysics(),
@@ -54,7 +55,7 @@ class ResourcesGrid extends StatelessWidget {
                   radius: const Radius.circular(8),
                   thickness: 4,
                   interactive: true,
-                  controller: ScrollController(),
+                  controller: _scrollController,
                   child: GridView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     scrollDirection: Axis.vertical,
@@ -84,12 +85,9 @@ class ResourcesGrid extends StatelessWidget {
                   radius: const Radius.circular(
                       12), // Increased radius for visibility
                   thickness: 10, // Increased thickness for better visibility
-                  controller:
-                      ScrollController(), // Link the same ScrollController
+                  controller:_scrollController, // Link the same ScrollController
                   child: GridView.builder(
-                    controller: ScrollController(
-                        keepScrollOffset:
-                            true), // Same ScrollController for the grid
+                    controller: _scrollController, // Same ScrollController for the grid
                     physics:
                         const AlwaysScrollableScrollPhysics(), // Ensure it's scrollable
                     shrinkWrap: true,
