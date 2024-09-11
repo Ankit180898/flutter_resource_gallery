@@ -4,6 +4,8 @@ import 'package:flutter_resource_gallery/res/responsive.dart';
 import 'package:flutter_resource_gallery/res/size_helpers.dart';
 
 class MainHeaderText extends StatelessWidget {
+  const MainHeaderText({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Responsive(
@@ -82,7 +84,7 @@ class MainHeaderText extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
           ),
-          SizedBox(height: 10,),
+          const SizedBox(height: 10,),
           Flexible(
             flex: 1,
             child: Text(

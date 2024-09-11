@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_resource_gallery/controller/supabase_controller.dart';
 import 'package:flutter_resource_gallery/res/constants.dart';
 import 'package:flutter_resource_gallery/view/home/components/custom_card.dart';
-import 'package:flutter_resource_gallery/view/home/home_screen.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../res/responsive.dart';
 import '../../../res/size_helpers.dart';
-
 
 class ResourcesGrid extends StatelessWidget {
   const ResourcesGrid({super.key});
@@ -30,7 +28,7 @@ class ResourcesGrid extends StatelessWidget {
                   controller: ScrollController(),
                   child: GridView.builder(
                     controller: ScrollController(),
-                    physics: const NeverScrollableScrollPhysics(),
+                    physics: const AlwaysScrollableScrollPhysics(),
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -58,7 +56,7 @@ class ResourcesGrid extends StatelessWidget {
                   interactive: true,
                   controller: ScrollController(),
                   child: GridView.builder(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -81,12 +79,19 @@ class ResourcesGrid extends StatelessWidget {
                 desktop: RawScrollbar(
                   thumbVisibility: true,
                   interactive: true,
-                  thumbColor: logoColor,
-                  radius: const Radius.circular(8),
-                  thickness: 4,
-                  controller: ScrollController(),
+                  thumbColor: Colors.redAccent.withOpacity(
+                      0.9), // Higher contrast color and more opaque
+                  radius: const Radius.circular(
+                      12), // Increased radius for visibility
+                  thickness: 10, // Increased thickness for better visibility
+                  controller:
+                      ScrollController(), // Link the same ScrollController
                   child: GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
+                    controller: ScrollController(
+                        keepScrollOffset:
+                            true), // Same ScrollController for the grid
+                    physics:
+                        const AlwaysScrollableScrollPhysics(), // Ensure it's scrollable
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -105,8 +110,7 @@ class ResourcesGrid extends StatelessWidget {
                       );
                     },
                   ),
-                ),
-              )
+                ))
             : Align(
                 alignment: Alignment.center,
                 child: SizedBox(

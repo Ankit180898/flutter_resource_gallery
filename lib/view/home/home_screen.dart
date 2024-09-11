@@ -1,6 +1,4 @@
-import 'package:animated_cursor/animated_cursor.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_resource_gallery/res/constants.dart';
 import 'package:flutter_resource_gallery/res/size_helpers.dart';
 import 'package:flutter_resource_gallery/view/home/components/footer_content.dart';
@@ -30,7 +28,7 @@ class HomeScreen extends StatelessWidget {
                   ? displayHeight(context) * 0.06
                   : displayHeight(context) * 0.03,
             ),
-            MainHeaderText(),
+            const MainHeaderText(),
             SizedBox(
               height: Responsive.isDesktop(context)
                   ? displayHeight(context) * 0.07

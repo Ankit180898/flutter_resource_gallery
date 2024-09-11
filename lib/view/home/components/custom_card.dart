@@ -12,7 +12,7 @@ class CustomCard extends StatelessWidget {
   final ResourceModel resource;
   final RxBool isHovered; // GetX RxBool for hover state
 
-  CustomCard({
+  const CustomCard({super.key, 
     required this.index,
     required this.isHovered,
     required this.resource,
@@ -41,7 +41,7 @@ class CustomCard extends StatelessWidget {
 
   Widget buildCard(BuildContext context) {
     return AnimatedContainer(
-      duration: Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 200),
       height: displayHeight(context) * 0.45,
       width: displayWidth(context) * 0.30,
       child: Stack(
@@ -49,7 +49,7 @@ class CustomCard extends StatelessWidget {
           Card(
             color: cardColor,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20)),
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
               side: BorderSide(
                 color: isHovered.value ? logoPrimaryColor : iconColor,
                 width: isHovered.value ? 6 : 4,
@@ -96,7 +96,7 @@ class CustomCard extends StatelessWidget {
                                   ),
                                   overflow: TextOverflow.ellipsis,
                                 ),
-                                SizedBox(height: 4), // Adjusted spacing
+                                const SizedBox(height: 4), // Adjusted spacing
                                 Text(
                                   resource.content,
                                   style: normalText(
@@ -109,7 +109,7 @@ class CustomCard extends StatelessWidget {
                               ],
                             ),
                           ),
-                          SizedBox(width: 16), // Adjusted spacing
+                          const SizedBox(width: 16), // Adjusted spacing
                           Expanded(
                             flex: 1,
                             child: Container(
@@ -151,7 +151,7 @@ class CustomCard extends StatelessWidget {
                 ),
                 child: IconButton(
                   onPressed: () {},
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.arrow_forward_ios_rounded,
                     color: textColor,
                   ),

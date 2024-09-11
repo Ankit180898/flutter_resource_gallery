@@ -13,7 +13,7 @@ class TopNavContents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Responsive(
-      desktop: Container(
+      desktop: SizedBox(
         height: displayHeight(context) * 0.17,
         child: Center(
           child: Column(
