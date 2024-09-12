@@ -41,8 +41,7 @@ class HomeScreen extends StatelessWidget {
                   ? displayHeight(context) * 0.07
                   : displayHeight(context) * 0.06,
             ),
-            SingleChildScrollView(
-                controller: ScrollController(), child: const ResourcesGrid()),
+             SingleChildScrollView( child:  ResourcesGrid()),
             SizedBox(
               height: Responsive.isDesktop(context)
                   ? displayHeight(context) * 0.10

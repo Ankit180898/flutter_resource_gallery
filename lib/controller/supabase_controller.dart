@@ -12,6 +12,8 @@ class SupabaseController extends GetxController {
   var isLoadingList = false.obs;
   var isSubmitted = false.obs;
   var countResourcesList = <Map<String, dynamic>>[].obs;
+  var _currentPage = 0;
+ final int _limit = 10; // Number of items per page
 
   @override
   onInit() async {
@@ -46,18 +48,28 @@ class SupabaseController extends GetxController {
     }
   }
 
-  Future<void> getResources() async {
+  Future<void> getResources({bool isRefresh = false}) async {
+    if (isRefresh) {
+      _currentPage = 0; // Reset page count if refreshing the data
+      resourcesList.clear(); // Clear previous data
+    }
+    
     isLoading.value = true;
-    final response = await supabase.from('resources').select();
+    
+    final response = await supabase
+        .from('resources')
+        .select()
+        .range(_currentPage * _limit, (_currentPage + 1) * _limit - 1); // Pagination
+
     isLoading.value = false;
 
-    print(response);
     if (response.isEmpty) {
       throw Exception('Failed to fetch resources');
     }
-    resourcesList.assignAll(response.map((e) => ResourceModel.fromJson(e)));
 
-    print("res:$resourcesList");
+    resourcesList.addAll(response.map((e) => ResourceModel.fromJson(e)));
+    _currentPage++; // Increase page count after successful fetch
+    print("res: $resourcesList");
   }
 
   Future<void> getCountResources() async {
@@ -69,7 +81,6 @@ class SupabaseController extends GetxController {
           .count();
       countResourcesList.assignAll(response.data['category']);
     }
-
     print("countres: $countResourcesList");
   }
 
@@ -79,7 +90,6 @@ class SupabaseController extends GetxController {
 
     if (category == 'All') {
       isLoadingList.value = true;
-
       filteredResourcesList.assignAll(resourcesList); // Show all resources
       isLoadingList.value = false;
     } else {
@@ -90,6 +100,13 @@ class SupabaseController extends GetxController {
           .where((resource) => resource.category == category)
           .toList());
       isLoadingList.value = false;
+    }
+  }
+
+  /// Method to load more resources when reaching the end of the list
+  Future<void> loadMoreResources() async {
+    if (!isLoading.value) {
+      await getResources();
     }
   }
 }
